@@ -10,11 +10,6 @@ import './App.css';
 class MainContainer extends Component {
   componentDidMount = () =>{
     this.props.onClick();
-    console.log(config.url.hello);
-      axios.get(config.url.hello)
-        .then((res) => {
-          console.log(res.data)
-        })
   }
 
   render() {
