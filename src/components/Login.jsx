@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {BrowserRouter, Redirect, Link} from 'react-router-dom'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../../actions/user';
+import * as actions from '../actions/user';
+import $ from 'jquery';
 
 class Login extends Component {
   constructor(props){
@@ -19,14 +20,16 @@ class Login extends Component {
   };
 
   onSubmit = () => {
-    this.props.login(this.state);
-    this.forceUpdate();
+    let data = {...this.state};
+    data.token =  localStorage.getItem('token');
+    this.props.login(data);
+
   };
 
   rememberMe = () => {
     this.setState({remember_me: !this.state.remember_me});
   };
-  
+
   componentDidMount(){
     let _this = this;
     $('.login_modal_body').on('keypress', function(e){
@@ -37,11 +40,10 @@ class Login extends Component {
   }
 
   render(){
-
-    if (this.props.user.isAuthenticated) {
-      return <BrowserRouter><Redirect to="/"/></BrowserRouter>
+    const {user} = this.props;
+    if(user.isAuthenticated){
+        return  (<Redirect to="/" />)
     }
-
     return (
       <div id="login">
           <div className="login-dialog">
@@ -89,14 +91,14 @@ class Login extends Component {
                           </div>
                       </div>
                       <p className="help-block">
-                          Don't have an account? <Link href="/sign-up">Sign Up</Link>
+                          Don't have an account? <Link to="/sign-up">Sign Up</Link>
                       </p>
                   </div>
               </div>
           </div>
       </div>
   );
-  
+
   }
 
 }
@@ -104,7 +106,7 @@ class Login extends Component {
 
 export default connect(
   (state) => {
-      return {user: state.userSettings, alert: state.userSettings.alert};
+      return {user: state.userSettings};
   },
   (dispatch) => bindActionCreators(actions, dispatch)
 )(Login);

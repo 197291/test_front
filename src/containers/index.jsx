@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Redirect } from 'react-router';
 import axios from 'axios';
 import config from '../config/config.js';
 import * as actions from '../actions';
@@ -12,7 +13,13 @@ class MainContainer extends Component {
     this.props.onClick();
   }
 
+
+
   render() {
+    let user = localStorage.getItem('user');
+
+    if(user === null ) {return <Redirect to="/login"/>}
+
     return (
       <div className="App">
         <header className="App-header">

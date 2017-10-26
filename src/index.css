@@ -3,3 +3,10 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.block{
+  display:block;
+}
+.none{
+  display:none;
+}

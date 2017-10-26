@@ -6,7 +6,7 @@ import * as Constants from '../constants'
 export function login (data) {
   return {
     type: Constants.ACTION_TYPE_PROMISE,
-    actions: [Constants.LOGIN_REQUEST, Constants.LOGIN_SUCCESS, Constants.SHOW_ERROR, Constants.USER_SET_TOKEN],
+    actions: [Constants.LOGIN_REQUEST, Constants.LOGIN_SUCCESS, Constants.SHOW_ERROR],
     promise: API.user.login(data),
   }
 }
@@ -17,28 +17,27 @@ export function logout () {
   }
 }
 
+export function signUp (data) {
+  return {
+    type: Constants.ACTION_TYPE_PROMISE,
+    actions: [Constants.SIGN_UP_REQUEST, Constants.SIGN_UP_SUCCESS, Constants.SHOW_ERROR, Constants.USER_SET_TOKEN],
+    promise: API.user.signUp(data),
+  }
+}
 
-export function setAuthorizationToken (response, storage) {
-  storage = storage || localStorage;
-  console.log('setAuthorizationToken', response);
+export function setAuthorizationToken (response) {
 
   if (Helper.empty(response) || Helper.empty(response.token)) {
     delete axios.defaults.headers.common['Authorization'];
-    storage.removeItem('user');
+    localStorage.removeItem('user');
   } else {
-    storage.setItem('user', JSON.stringify(response));
-
-    console.log('storage', storage);
+    localStorage.setItem('user', JSON.stringify(response.user));
+    localStorage.setItem('token', response.token);
     axios.defaults.headers.common['Authorization'] = response.token
+    console.log(localStorage);
   }
 }
 
 export function startSessionStack(userData) {
-  if (sessionstack) {
-    sessionstack('identify', {
-      userId: userData.user_id,
-      email: userData.email,
-      displayName: userData.user_name
-    });
-  }
+
 }
