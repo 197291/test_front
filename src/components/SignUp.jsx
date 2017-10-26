@@ -75,7 +75,11 @@ class SignUp extends Component {
 render(){
     const {user} = this.props;
     if(user.isAuthenticated){
-        return  (<Redirect to="/"/>)
+        return  (
+        <BrowserRouter>
+            <Redirect to="/"/>
+        </BrowserRouter>
+        )
     }
   return(
     <div id="signup">

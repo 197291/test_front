@@ -3,22 +3,28 @@ import { connect } from 'react-redux';
 import {Redirect } from 'react-router';
 import axios from 'axios';
 import config from '../config/config.js';
-import * as actions from '../actions';
+
+import {setUser} from '../actions/user';
 
 import logo from './logo.svg';
 import './App.css';
 
 class MainContainer extends Component {
-  componentDidMount = () =>{
-    this.props.onClick();
+  constructor(props){
+    super(props)
+
+    const data = {
+      user:JSON.parse(localStorage.getItem('user')),
+      token:localStorage.getItem('token')
+    }
+       if (data !== null) {
+           this.props.setUser(data);
+       }
   }
 
-
-
   render() {
-    let user = localStorage.getItem('user');
 
-    if(user === null ) {return <Redirect to="/login"/>}
+    if(!this.props.user.isAuthenticated) {return <Redirect to="/login"/>}
 
     return (
       <div className="App">
@@ -29,6 +35,7 @@ class MainContainer extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <button onClick={this.check}>press</button>
       </div>
     );
   }
@@ -36,14 +43,15 @@ class MainContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    init:state.init
+    init:state.init,
+    user:state.userSettings
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClick: () => {
-      dispatch(actions.auth.getUser('yuriy'))
+    setUser: (data) => {
+      dispatch(setUser(data))
     }
   }
 }

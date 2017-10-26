@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/user';
 import $ from 'jquery';
+import axios from 'axios';
 
 class Login extends Component {
   constructor(props){
@@ -29,6 +30,12 @@ class Login extends Component {
   rememberMe = () => {
     this.setState({remember_me: !this.state.remember_me});
   };
+
+  enterWithGoogle = () => {
+      axios.get('http://localhost:4000/auth/google').then(res => {
+          console.log(res)
+      })
+  }
 
   componentDidMount(){
     let _this = this;
@@ -88,6 +95,9 @@ class Login extends Component {
                       <div className="form-group">
                           <div className="btn-group-justified">
                               <button className="btn btn-lg btn-green" onClick={this.onSubmit}>Sign In</button>
+                          </div>
+                          <div>
+                          <a href='http://localhost:4000/auth/google'>Log with google</a>
                           </div>
                       </div>
                       <p className="help-block">

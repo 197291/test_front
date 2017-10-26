@@ -7,21 +7,22 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
 
+// import { connect } from 'react-redux';
 
-class App extends Component {
-  componentDidMount(){
 
-  }
+
+export default class App extends Component {
+
 
   render() {
 
    return (
       <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter >
         <Switch>
-          <Route exact path="/" component={MainContainer}/>
           <Route path='/sign-up' component={SignUp} />
           <Route path='/login' component={Login} />
+          <Route exact path="/" component={MainContainer}/>
         </Switch>
       </BrowserRouter>
       </Provider>
@@ -29,4 +30,20 @@ class App extends Component {
   }
 }
 
-export default App;
+
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     user:state.userSettings
+//   }
+// }
+
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   return {
+//     setUser: (data) => {
+//       dispatch(setUser(data))
+//     }
+//   }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+

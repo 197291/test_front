@@ -25,6 +25,13 @@ export function signUp (data) {
   }
 }
 
+export function setUser (data) {
+  return {
+    type: Constants.LOGIN_SUCCESS,
+    data,
+  }
+}
+
 export function setAuthorizationToken (response) {
 
   if (Helper.empty(response) || Helper.empty(response.token)) {
@@ -34,7 +41,7 @@ export function setAuthorizationToken (response) {
     localStorage.setItem('user', JSON.stringify(response.user));
     localStorage.setItem('token', response.token);
     axios.defaults.headers.common['Authorization'] = response.token
-    console.log(localStorage);
+
   }
 }
 

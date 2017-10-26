@@ -8,7 +8,9 @@ export function userSettings (state = {}, action) {
     //auth
     case Constants.LOGIN_SUCCESS:
       const token = Helper.empty(action.data) || Helper.empty(action.data.token) ? null : action.data.token
-      axios.defaults.headers.common['Authorization'] = token
+ 
+      setAuthorizationToken(action.data)
+      // axios.defaults.headers.common['Authorization'] = token
       return {...state, ...action.data, isAuthenticated: !Helper.empty(token)}
 
     case Constants.USER_SET_TOKEN:
