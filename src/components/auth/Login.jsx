@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Redirect, Link} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../actions/user';
+import * as actions from '../../actions/user';
 import $ from 'jquery';
 import axios from 'axios';
 
@@ -48,7 +48,8 @@ class Login extends Component {
 
   render(){
     const {user} = this.props;
-    if(user.isAuthenticated){
+    const token = localStorage.getItem('token');
+    if(user.isAuthenticated || !!token){
         return  (<Redirect to="/" />)
     }
     return (

@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif
 }
 
 .block{
@@ -10,3 +10,14 @@ body {
 .none{
   display:none;
 }
+
+.wrap_card {
+  display: inline-block;
+}
+.wrap_card img {
+  display: block;
+  max-height: 300px;
+  max-width: 200px;
+  margin: auto;
+  width: auto;
+  height: auto; }

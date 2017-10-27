@@ -1,0 +1,10 @@
+.MuiInput-underline-112:before {
+  bottom: -2px; }
+
+.wrap_card image {
+  display: block;
+  max-height: 300px;
+  max-width: 200px;
+  margin: auto;
+  width: auto;
+  height: auto; }

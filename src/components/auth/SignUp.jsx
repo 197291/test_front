@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {Redirect } from 'react-router';
-import { BrowserRouter, Switch } from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import * as actions from '../actions/user';
-import $ from 'jquery';
+import * as actions from '../../actions/user';
+
 
 const states = ['email', 'name', 'age', 'password', 'confirm'];
 class SignUp extends Component {
@@ -62,8 +61,6 @@ class SignUp extends Component {
   }
 
   onSubmit = () => {
-    let pass = this.state.password,
-        confirm = this.state.confirm;
     this.confirmPass() && this.epmtyFields() && this.props.signUp(this.state);
   };
 
@@ -74,13 +71,13 @@ class SignUp extends Component {
 
 render(){
     const {user} = this.props;
-    if(user.isAuthenticated){
+    const token = localStorage.getItem('token');
+    if(user.isAuthenticated || !!token){
         return  (
-        <BrowserRouter>
-            <Redirect to="/"/>
-        </BrowserRouter>
-        )
+                  <Redirect to="/"/>
+           )
     }
+
   return(
     <div id="signup">
     <div className="login-dialog">
