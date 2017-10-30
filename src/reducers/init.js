@@ -1,5 +1,6 @@
 const initState = {
-  name:'Guest'
+  name:'Guest',
+  
 }
 
 export function init(state = initState){

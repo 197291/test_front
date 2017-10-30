@@ -19,7 +19,7 @@ export default class MainAvatar extends Component{
   crop = () => {
   const _this = this;
     let src = this.refs.cropper.crop();
-    console.log(this.props.user_id)
+    
     axios.post('http:///localhost:4000/image/crop',{
       data:{
         src,
@@ -41,7 +41,9 @@ export default class MainAvatar extends Component{
   }
 
   onChange = (val) => {
-    console.log('val from onChange', val);
+      const file = document.querySelector('#avatar_input').files[0];
+
+
   }
 
 render(){
@@ -49,7 +51,7 @@ render(){
     <Grid item xs={4}>
       <aside>
         <div className='wrap_card'>
-          <Cropper className='crop_image' onChange={this.onChange} src={this.state.src} ref="cropper"/>
+          <Cropper className='crop_image' onChange={this.onChange} src={this.props.src} ref="cropper"/>
         </div>
             <Button onClick={this.loadImage} raised color='default'>
               Load/Update an image
